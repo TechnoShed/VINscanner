@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>VIN Scanner</title>
+    <script>
+        function validateForm() {
+            var vinInput = document.getElementById('vinInput');
+            var vin = vinInput.value.trim();
+            
+            if (vin.length < 16 || vin.length > 17) {
+                alert("VIN number must be 16 or 17 characters long.");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <h1>VIN Scanner</h1>
+    <form action="/add_vin" method="post" onsubmit="return validateForm()">
+        <input type="text" id="vinInput" name="vin" placeholder="Enter VIN number" autofocus>
+        <button type="submit">Add VIN</button>
+    </form>
+    <br>
+    <form action="/clear_vin" method="get">
+        <button type="submit">Clear List</button>
+    </form>
+    <form action="/undo_vin" method="get">
+        <button type="submit">Undo</button>
+    </form>
+    <br>
+    <form action="/save_excel" method="post" > 
+        <button type="submit">Save as Excel</button>
+    </form>
+    <br>
+    <h2>VIN List</h2>
+    <ul>
+        {% for vin in vin_list['VIN'] %}
+            <li>{{ vin }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+
